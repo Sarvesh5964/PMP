@@ -251,6 +251,102 @@ const seed = async () => {
         difficulty: 'medium',
         content: 'Describe a situation where you had a disagreement with a team member. How did you resolve it?',
         hints: ['Use the STAR model. Focus on collaboration, active listening, and achieving a professional compromise.']
+      },
+      {
+        title: 'SQL Joins and Window Functions',
+        type: 'interview',
+        category: 'Data Analyst',
+        difficulty: 'medium',
+        content: 'Explain the difference between Row_Number(), Rank(), and Dense_Rank() window functions in SQL with an example.',
+        hints: ['Row_Number assigns unique serial numbers. Rank skips rank indices on ties. Dense_Rank does not skip rank indices on ties.']
+      },
+      {
+        title: 'Handling Missing Values',
+        type: 'interview',
+        category: 'Data Analyst',
+        difficulty: 'easy',
+        content: 'How do you handle missing values or outliers in a dataset before conducting your analysis?',
+        hints: ['Imputation using mean/median/mode, deleting rows, or treating missing entries as a separate category.']
+      },
+      {
+        title: 'A/B Testing significance',
+        type: 'interview',
+        category: 'Data Analyst',
+        difficulty: 'hard',
+        content: 'How do you design an A/B test for a new feature launch, and how do you calculate statistical significance (p-value)?',
+        hints: ['Hypothesis formulation, splitting traffic, selecting sample sizes, and choosing t-test or z-test thresholds.']
+      },
+      {
+        title: 'Supervised vs Unsupervised Learning',
+        type: 'interview',
+        category: 'AI/ML Engineer',
+        difficulty: 'easy',
+        content: 'Compare Supervised and Unsupervised Learning. Give one business example of each.',
+        hints: ['Supervised uses labeled datasets (e.g. price prediction). Unsupervised finds hidden patterns (e.g. customer segmentation).']
+      },
+      {
+        title: 'Overfitting and Regularization',
+        type: 'interview',
+        category: 'AI/ML Engineer',
+        difficulty: 'medium',
+        content: 'Explain what overfitting is. How do L1 (Lasso) and L2 (Ridge) regularization help prevent it?',
+        hints: ['Overfitting fits noise instead of signal. L1 adds absolute weight penalty. L2 adds squared weight penalty.']
+      },
+      {
+        title: 'Activation Functions in NN',
+        type: 'interview',
+        category: 'AI/ML Engineer',
+        difficulty: 'hard',
+        content: 'Why do we require non-linear activation functions (like ReLU) in neural networks instead of linear ones?',
+        hints: ['Without non-linearity, a neural network, no matter how many layers it has, collapses into a simple linear regression.']
+      },
+      {
+        title: 'CI/CD Pipeline Stages',
+        type: 'interview',
+        category: 'DevOps Engineer',
+        difficulty: 'medium',
+        content: 'What are the main stages of a modern CI/CD pipeline, and what actions are performed in each?',
+        hints: ['Source control commit, Unit/Linter tests build, Integration tests, Deployment staging, and Release monitoring.']
+      },
+      {
+        title: 'Infrastructure as Code benefits',
+        type: 'interview',
+        category: 'DevOps Engineer',
+        difficulty: 'easy',
+        content: 'What is Infrastructure as Code (IaC) and what are its primary benefits?',
+        hints: ['Version-controlled architecture, repeatable environments, speed of provisioning, and documentation as code.']
+      },
+      {
+        title: 'Docker Containers vs Virtual Machines',
+        type: 'interview',
+        category: 'DevOps Engineer',
+        difficulty: 'medium',
+        content: 'Describe the architectural difference between Docker containers and Virtual Machines.',
+        hints: ['Docker shares the host OS kernel and is lightweight. VMs include a full guest OS and run via a hypervisor.']
+      },
+      {
+        title: 'Feature Selection Methods',
+        type: 'interview',
+        category: 'Data Scientist',
+        difficulty: 'medium',
+        content: 'What feature selection techniques do you use to filter irrelevant features from a machine learning model?',
+        hints: ['Filter methods (correlation), Wrapper methods (forward/backward selection), and Embedded methods (Lasso/Decision Trees).']
+      },
+      {
+        title: 'Precision vs Recall trade-off',
+        type: 'interview',
+        category: 'Data Scientist',
+        difficulty: 'medium',
+        content: 'What is the difference between Precision and Recall? When would you prioritize Recall over Precision?',
+        hints: ['Precision focuses on accuracy of positives. Recall focuses on capturing all positives (e.g. disease diagnosis).']
+      },
+      {
+        title: 'Random Forest vs Gradient Boosting',
+        type: 'interview',
+        category: 'Data Scientist',
+        difficulty: 'hard',
+        content: 'Compare Random Forest and Gradient Boosting algorithms in terms of bagging vs boosting.',
+        hints: ['Random Forest builds parallel independent trees (bagging). Gradient Boosting builds trees sequentially to fix errors (boosting).']
       }
     ];
 

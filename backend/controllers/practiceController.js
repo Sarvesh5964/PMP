@@ -21,24 +21,64 @@ const getPracticeDashboard = async (req, res) => {
 };
 
 const submitCodingChallenge = async (req, res) => {
-  const { code } = req.body;
+  const { code, language, runOnly } = req.body;
   try {
     const q = await Question.findById(req.params.id);
     if (!q || q.type !== 'coding') return res.status(404).json({ success: false, message: 'Coding task not found' });
 
-    const userCodeLower = code.toLowerCase();
+    let compilerError = null;
     let passed = true;
-    if (q.title.toLowerCase().includes('reverse') && !userCodeLower.includes('reverse') && !userCodeLower.includes('split') && !userCodeLower.includes('for')) passed = false;
+    const userCodeLower = code ? code.toLowerCase() : '';
 
-    const testResults = q.testCases.map(tc => ({
-      input: tc.input, expected: tc.expectedOutput, actual: passed ? tc.expectedOutput : 'Failed return value', passed
-    }));
+    // 1. Basic Syntax check for brackets
+    const openBraces = (code.match(/\{/g) || []).length;
+    const closeBraces = (code.match(/\}/g) || []).length;
+    const openParens = (code.match(/\(/g) || []).length;
+    const closeParens = (code.match(/\)/g) || []).length;
+    if (openBraces !== closeBraces || openParens !== closeParens) {
+      compilerError = `SyntaxError: Unbalanced brackets detected (Braces: ${openBraces} vs ${closeBraces}, Parentheses: ${openParens} vs ${closeParens})`;
+      passed = false;
+    }
 
-    let pr = await Practice.findOne({ user: req.user._id });
-    if (!pr) pr = new Practice({ user: req.user._id });
+    // 2. Language Mismatch Simulation
+    const isPython = language && (language.toLowerCase().includes('python'));
+    const isC = language && (language.toLowerCase() === 'c' || language.toLowerCase() === 'c++');
+    const isJava = language && (language.toLowerCase() === 'java' || language.toLowerCase() === 'c#');
 
-    const existIdx = pr.codingProgress.findIndex(cp => cp.question.toString() === q._id.toString());
-    if (passed) {
+    if (isPython && (code.includes('function ') || code.includes('var ') || code.includes('const ') || code.includes('let ') || code.includes(';'))) {
+      compilerError = `File "solution.py", line 4\n    def solve() {\n                ^\nSyntaxError: invalid syntax (Found JavaScript tokens like semicolons or function brackets in Python)`;
+      passed = false;
+    } else if ((isC || isJava) && (code.includes('def ') || !code.includes(';'))) {
+      compilerError = `solution.cpp: In function 'void solve()':\nerror: expected ';' before token (Found Python-style indentation or missing statement termination)`;
+      passed = false;
+    }
+
+    // 3. Logic check simulation
+    if (!compilerError) {
+      if (q.title.toLowerCase().includes('reverse') && !userCodeLower.includes('reverse') && !userCodeLower.includes('split') && !userCodeLower.includes('for') && !userCodeLower.includes('reverselist')) {
+        passed = false;
+      }
+      if (q.title.toLowerCase().includes('max') && !userCodeLower.includes('max') && !userCodeLower.includes('math') && !userCodeLower.includes('for') && !userCodeLower.includes('while')) {
+        passed = false;
+      }
+    }
+
+    const testResults = q.testCases.map(tc => {
+      let actualOutput = passed ? tc.expectedOutput : 'Failed return value (wrong logical execution)';
+      if (compilerError) actualOutput = 'Compilation Error';
+      return {
+        input: tc.input,
+        expected: tc.expectedOutput,
+        actual: actualOutput,
+        passed: passed && !compilerError
+      };
+    });
+
+    if (!runOnly && passed && !compilerError) {
+      let pr = await Practice.findOne({ user: req.user._id });
+      if (!pr) pr = new Practice({ user: req.user._id });
+
+      const existIdx = pr.codingProgress.findIndex(cp => cp.question.toString() === q._id.toString());
       if (existIdx > -1) {
         pr.codingProgress[existIdx].status = 'solved';
         pr.codingProgress[existIdx].code = code;
@@ -46,11 +86,10 @@ const submitCodingChallenge = async (req, res) => {
       } else {
         pr.codingProgress.push({ question: q._id, status: 'solved', code });
       }
-    } else {
-      if (existIdx === -1) pr.codingProgress.push({ question: q._id, status: 'started', code });
+      await pr.save();
     }
-    await pr.save();
-    res.json({ success: true, data: { passed, results: testResults } });
+
+    res.json({ success: true, data: { passed: passed && !compilerError, results: testResults, compilerError } });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

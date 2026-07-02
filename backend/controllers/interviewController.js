@@ -5,7 +5,10 @@ const { evaluateInterviewAnswer } = require('../services/aiService');
 const startInterview = async (req, res) => {
   const { role } = req.body;
   try {
-    const qList = await Question.find({ type: 'interview' }).limit(4);
+    let qList = await Question.find({ type: 'interview', category: role }).limit(4);
+    if (!qList || qList.length === 0) {
+      qList = await Question.find({ type: 'interview' }).limit(4);
+    }
     res.json({ success: true, data: { role, questions: qList } });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

@@ -162,6 +162,10 @@ const InterviewPage = () => {
                 <option value="Frontend Developer">Frontend Developer</option>
                 <option value="Backend Engineer">Backend Engineer</option>
                 <option value="Full Stack Developer">Full Stack Developer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="AI/ML Engineer">AI/ML Engineer</option>
+                <option value="DevOps Engineer">DevOps Engineer</option>
+                <option value="Data Scientist">Data Scientist</option>
               </select>
               <button type="submit" className="w-full py-3 bg-indigo-600 text-xs font-semibold text-white rounded-xl hover:bg-indigo-500">Enter Interview Room</button>
             </form>

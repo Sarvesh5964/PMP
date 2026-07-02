@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '../services/api';
-import { HelpCircle, CheckCircle2, XCircle, Code, Award, CheckSquare } from 'lucide-react';
+import { HelpCircle, CheckCircle2, XCircle, Code, Award, CheckSquare, Terminal } from 'lucide-react';
+
+const templates = {
+  javascript: `function solve() {\n  // Write JavaScript code here\n}`,
+  python: `def solve():\n    # Write Python code here\n    pass`,
+  python3: `def solve():\n    # Write Python 3 code here\n    pass`,
+  c: `#include <stdio.h>\n\nvoid solve() {\n    // Write C code here\n}`,
+  cpp: `#include <iostream>\nusing namespace std;\n\nvoid solve() {\n    // Write C++ code here\n}`,
+  java: `public class Solution {\n    public static void solve() {\n        // Write Java code here\n    }\n}`,
+  csharp: `using System;\n\npublic class Solution {\n    public static void Solve() {\n        // Write C# code here\n    }\n}`,
+  ruby: `def solve\n  # Write Ruby code here\nend`
+};
 
 const PracticePage = () => {
   const location = useLocation();
@@ -10,6 +21,7 @@ const PracticePage = () => {
   const [questions, setQuestions] = useState([]);
   const [selectedQ, setSelectedQ] = useState(null);
   const [userCode, setUserCode] = useState('');
+  const [language, setLanguage] = useState('javascript');
   const [solving, setSolving] = useState(false);
   const [results, setResults] = useState(null);
 
@@ -36,14 +48,26 @@ const PracticePage = () => {
   const handleStartCoding = (q) => {
     setSelectedQ(q);
     setResults(null);
-    setUserCode(`function solve() {\n  // Write your code here\n}`);
+    setLanguage('javascript');
+    setUserCode(templates.javascript);
   };
 
-  const handleRunCode = async () => {
+  const handleLanguageChange = (lang) => {
+    setLanguage(lang);
+    setUserCode(templates[lang]);
+  };
+
+  const handleExecuteCode = async (runOnly = false) => {
     setSolving(true);
     try {
-      const res = await api.post(`/api/practice/coding/${selectedQ._id}`, { code: userCode });
-      if (res.data.success) setResults(res.data.data);
+      const res = await api.post(`/api/practice/coding/${selectedQ._id}`, { 
+        code: userCode, 
+        language, 
+        runOnly 
+      });
+      if (res.data.success) {
+        setResults(res.data.data);
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -151,18 +175,84 @@ const PracticePage = () => {
                 </ul>
               </div>
             </div>
+            
             <div className="space-y-4">
+              {/* Language Selection Header */}
+              <div className="flex justify-between items-center">
+                <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Terminal className="h-4.5 w-4.5 text-indigo-400" />
+                  Code Workspace Editor
+                </span>
+                <select value={language} onChange={e => handleLanguageChange(e.target.value)} className="rounded-lg border border-white/10 bg-slate-900 py-1.5 px-3.5 text-slate-200 text-xs focus:outline-none">
+                  <option value="javascript">JavaScript</option>
+                  <option value="python">Python</option>
+                  <option value="python3">Python 3</option>
+                  <option value="c">C</option>
+                  <option value="cpp">C++</option>
+                  <option value="java">Java</option>
+                  <option value="csharp">C#</option>
+                  <option value="ruby">Ruby</option>
+                </select>
+              </div>
+
               <textarea value={userCode} onChange={e => setUserCode(e.target.value)} className="w-full h-80 bg-slate-950 p-4 border border-white/10 rounded-xl text-xs font-mono text-indigo-300 resize-none focus:outline-none" />
-              <button onClick={handleRunCode} disabled={solving} className="w-full py-2.5 bg-indigo-600 text-xs font-semibold text-white rounded-xl hover:bg-indigo-500">{solving ? 'Evaluating...' : 'Run & Submit'}</button>
+              
+              {/* Execution Actions */}
+              <div className="grid grid-cols-2 gap-3">
+                <button onClick={() => handleExecuteCode(true)} disabled={solving} className="py-2.5 bg-white/5 border border-white/5 text-xs font-semibold text-slate-300 rounded-xl hover:bg-white/10 transition-colors">
+                  {solving ? 'Running...' : 'Compile & Run'}
+                </button>
+                <button onClick={() => handleExecuteCode(false)} disabled={solving} className="py-2.5 bg-indigo-600 text-xs font-semibold text-white rounded-xl hover:bg-indigo-500 transition-colors">
+                  {solving ? 'Submitting...' : 'Submit Solution'}
+                </button>
+              </div>
+
+              {/* Execution Results Terminal Panel */}
               {results && (
-                <div className="glass-panel p-4 rounded-xl border border-white/5 text-xs">
-                  <span className="font-bold text-[10px] block mb-2 uppercase tracking-wide">Test cases</span>
-                  {results.results.map((r, idx) => (
-                    <div key={idx} className="flex justify-between items-center text-xs py-1.5 border-b border-white/5 last:border-0">
-                      <span className="font-mono text-slate-400">Case {idx+1}: {r.passed ? 'Passed' : 'Failed'}</span>
-                      {r.passed ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <XCircle className="h-4 w-4 text-rose-400" />}
+                <div className="glass-panel p-4 rounded-xl border border-white/5 text-xs space-y-3">
+                  <span className="font-bold text-[10px] block uppercase tracking-wide text-slate-400">Terminal Output Logs</span>
+                  
+                  {results.compilerError ? (
+                    /* Red IDE compiler warning */
+                    <div className="p-4 rounded-xl border border-rose-500/10 bg-rose-500/5 text-[11px] font-mono text-rose-400 whitespace-pre-wrap leading-relaxed">
+                      <span className="font-extrabold uppercase text-[9px] text-rose-500 block mb-1">COMPILATION ERROR</span>
+                      {results.compilerError}
                     </div>
-                  ))}
+                  ) : (
+                    /* Test Cases details */
+                    <div className="space-y-3">
+                      {results.results.map((r, idx) => (
+                        <div key={idx} className="p-3 rounded-xl bg-slate-950/60 border border-white/5 space-y-2">
+                          <div className="flex justify-between items-center border-b border-white/5 pb-1">
+                            <span className="font-bold text-[9px] text-slate-500">TEST CASE {idx + 1}</span>
+                            {r.passed ? (
+                              <span className="text-[9px] text-emerald-400 font-extrabold uppercase flex items-center gap-1">
+                                <CheckCircle2 className="h-3.5 w-3.5" /> Passed
+                              </span>
+                            ) : (
+                              <span className="text-[9px] text-rose-400 font-extrabold uppercase flex items-center gap-1">
+                                <XCircle className="h-3.5 w-3.5" /> Failed
+                              </span>
+                            )}
+                          </div>
+                          <div className="grid grid-cols-3 gap-2 text-[10px] font-mono leading-relaxed">
+                            <div>
+                              <span className="text-slate-500 block text-[9px]">Input</span>
+                              <span className="text-slate-400">{r.input}</span>
+                            </div>
+                            <div>
+                              <span className="text-slate-500 block text-[9px]">Expected</span>
+                              <span className="text-indigo-400">{r.expected}</span>
+                            </div>
+                            <div>
+                              <span className="text-slate-500 block text-[9px]">Actual</span>
+                              <span className={r.passed ? 'text-emerald-400' : 'text-rose-400'}>{r.actual}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
