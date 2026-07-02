@@ -7,7 +7,7 @@ const getProfile = async (req, res) => {
   try {
     let profile = await Profile.findOne({ user: req.user._id });
     if (!profile) {
-      profile = await Profile.create({ user: req.user._id, cgpa: 0, skills: [], experience: [], education: [], projects: [] });
+      profile = await Profile.create({ user: req.user._id, cgpa: 0, skills: [], projects: '', internships: '', certificates: '', education: [] });
     }
     res.json({ success: true, data: profile });
   } catch (err) {
@@ -16,16 +16,17 @@ const getProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  const { cgpa, skills, experience, education, projects } = req.body;
+  const { cgpa, skills, projects, internships, certificates, education } = req.body;
   try {
     let profile = await Profile.findOne({ user: req.user._id });
     if (!profile) profile = new Profile({ user: req.user._id });
 
     profile.cgpa = cgpa !== undefined ? cgpa : profile.cgpa;
     profile.skills = skills || profile.skills;
-    profile.experience = experience || profile.experience;
+    profile.projects = projects !== undefined ? projects : profile.projects;
+    profile.internships = internships !== undefined ? internships : profile.internships;
+    profile.certificates = certificates !== undefined ? certificates : profile.certificates;
     profile.education = education || profile.education;
-    profile.projects = projects || profile.projects;
     profile.completed = true;
 
     await profile.save();
@@ -43,7 +44,7 @@ const uploadResume = async (req, res) => {
 
     profile.resumeUrl = `/uploads/${req.file.filename}`;
 
-    const textMock = `RESUME OF: ${req.user.name}\nEmail: ${req.user.email}\nCGPA: ${profile.cgpa}\nSkills: ${profile.skills.join(', ')}\nProjects: ${profile.projects.map(p => p.title).join(', ')}`;
+    const textMock = `RESUME OF: ${req.user.name}\nEmail: ${req.user.email}\nCGPA: ${profile.cgpa}\nSkills: ${profile.skills.join(', ')}\nProjects: ${profile.projects}\nInternships: ${profile.internships}\nCertificates: ${profile.certificates}`;
     profile.resumeAnalysis = await analyzeResume(textMock, profile.skills);
 
     await profile.save();

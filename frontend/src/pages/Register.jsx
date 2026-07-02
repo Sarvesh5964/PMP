@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Register = () => {
   const { register } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState('student');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -33,7 +35,12 @@ const Register = () => {
         <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
           <input type="text" required placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 px-4 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none" />
           <input type="email" required placeholder="Email Address" value={email} onChange={e => setEmail(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 px-4 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none" />
-          <input type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 px-4 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none" />
+          <div className="relative">
+            <input type={showPassword ? "text" : "password"} required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 pl-4 pr-12 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none" />
+            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 focus:outline-none">
+              {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
+            </button>
+          </div>
           <select value={role} onChange={e => setRole(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 px-4 text-slate-100 text-xs focus:outline-none">
             <option value="student">Student Candidate</option>
             <option value="admin">Portal Administrator</option>

@@ -4,23 +4,14 @@ const ProfileSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
   cgpa: { type: Number, default: 0 },
   skills: { type: [String], default: [] },
-  experience: [{
-    company: String,
-    role: String,
-    duration: String,
-    description: String
-  }],
+  projects: { type: String, default: '' },
+  internships: { type: String, default: '' },
+  certificates: { type: String, default: '' },
   education: [{
     institution: String,
     degree: String,
     year: Number,
     score: String
-  }],
-  projects: [{
-    title: String,
-    techStack: [String],
-    description: String,
-    demoLink: String
   }],
   resumeUrl: { type: String, default: '' },
   resumeAnalysis: {

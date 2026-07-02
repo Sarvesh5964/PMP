@@ -7,8 +7,9 @@ const ResumePage = () => {
   const [cgpa, setCgpa] = useState('');
   const [skills, setSkills] = useState('');
   const [education, setEducation] = useState([]);
-  const [projects, setProjects] = useState([]);
-  const [experience, setExperience] = useState([]);
+  const [projects, setProjects] = useState('');
+  const [internships, setInternships] = useState('');
+  const [certificates, setCertificates] = useState('');
 
   const [resumeFile, setResumeFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -28,8 +29,9 @@ const ResumePage = () => {
         setCgpa(res.data.data.cgpa || '');
         setSkills(res.data.data.skills?.join(', ') || '');
         setEducation(res.data.data.education || []);
-        setProjects(res.data.data.projects || []);
-        setExperience(res.data.data.experience || []);
+        setProjects(res.data.data.projects || '');
+        setInternships(res.data.data.internships || '');
+        setCertificates(res.data.data.certificates || '');
       }
     } catch (e) {
       console.error(e);
@@ -42,7 +44,7 @@ const ResumePage = () => {
     setErr('');
     const skillList = skills.split(',').map(s => s.trim()).filter(s => s.length > 0);
     try {
-      const res = await api.put('/api/profile', { cgpa: parseFloat(cgpa) || 0, skills: skillList, education, projects, experience });
+      const res = await api.put('/api/profile', { cgpa: parseFloat(cgpa) || 0, skills: skillList, education, projects, internships, certificates });
       if (res.data.success) {
         setProfile(res.data.data);
         setMsg('Profile details updated!');
@@ -100,18 +102,18 @@ const ResumePage = () => {
                 <label className="block text-[10px] text-slate-500 mb-1 font-bold">SKILLS (comma split)</label>
                 <input type="text" value={skills} onChange={e => setSkills(e.target.value)} className="block w-full rounded-xl border border-white/10 bg-slate-900/60 py-2 px-3 text-slate-100 text-xs focus:outline-none" />
               </div>
-            </div>
-            {/* Experience list */}
-            <div className="glass-panel p-5 rounded-2xl space-y-4">
-              <div className="flex justify-between items-center"><span className="text-xs font-bold text-slate-300">Experience</span><button type="button" onClick={() => setExperience([...experience, { company: '', role: '', duration: '', description: '' }])} className="text-[10px] text-indigo-400 font-bold">+ Add</button></div>
-              {experience.map((exp, i) => (
-                <div key={i} className="p-4 bg-white/5 rounded-xl border border-white/5 space-y-2 relative">
-                  <button type="button" onClick={() => setExperience(experience.filter((_, idx) => idx !== i))} className="absolute top-2 right-2 text-rose-500 text-[10px]">Remove</button>
-                  <input type="text" placeholder="Company" value={exp.company} onChange={e => { const copy = [...experience]; copy[i].company = e.target.value; setExperience(copy); }} className="block w-full rounded-xl border border-white/10 bg-slate-900/60 py-2 px-3 text-slate-100 text-xs focus:outline-none" />
-                  <input type="text" placeholder="Role" value={exp.role} onChange={e => { const copy = [...experience]; copy[i].role = e.target.value; setExperience(copy); }} className="block w-full rounded-xl border border-white/10 bg-slate-900/60 py-2 px-3 text-slate-100 text-xs focus:outline-none" />
-                  <textarea placeholder="Description" value={exp.description} onChange={e => { const copy = [...experience]; copy[i].description = e.target.value; setExperience(copy); }} rows={2} className="block w-full rounded-xl border border-white/10 bg-slate-900/60 py-2 px-3 text-slate-100 text-xs focus:outline-none" />
-                </div>
-              ))}
+              <div className="col-span-2">
+                <label className="block text-[10px] text-slate-500 mb-1 font-bold">PROJECTS</label>
+                <input type="text" placeholder="e.g. Chat App using React, Portfolio website" value={projects} onChange={e => setProjects(e.target.value)} className="block w-full rounded-xl border border-white/10 bg-slate-900/60 py-2 px-3 text-slate-100 text-xs focus:outline-none" />
+              </div>
+              <div>
+                <label className="block text-[10px] text-slate-500 mb-1 font-bold">INTERNSHIPS</label>
+                <input type="text" placeholder="e.g. Web Dev Intern at Google" value={internships} onChange={e => setInternships(e.target.value)} className="block w-full rounded-xl border border-white/10 bg-slate-900/60 py-2 px-3 text-slate-100 text-xs focus:outline-none" />
+              </div>
+              <div>
+                <label className="block text-[10px] text-slate-500 mb-1 font-bold">CERTIFICATES</label>
+                <input type="text" placeholder="e.g. AWS Cloud Practitioner" value={certificates} onChange={e => setCertificates(e.target.value)} className="block w-full rounded-xl border border-white/10 bg-slate-900/60 py-2 px-3 text-slate-100 text-xs focus:outline-none" />
+              </div>
             </div>
             <button type="submit" className="w-full py-3 bg-indigo-600 text-xs font-semibold text-white rounded-2xl hover:bg-indigo-500">Save Profile</button>
           </form>

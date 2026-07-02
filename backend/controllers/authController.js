@@ -10,10 +10,11 @@ const generateToken = (id) => {
 const registerUser = async (req, res) => {
   const { name, email, password, role } = req.body;
   try {
-    const userExists = await User.findOne({ email });
+    const cleanEmail = email ? email.toLowerCase().trim() : '';
+    const userExists = await User.findOne({ email: cleanEmail });
     if (userExists) return res.status(400).json({ success: false, message: 'User already exists' });
 
-    const user = await User.create({ name, email, password, role: role || 'student' });
+    const user = await User.create({ name, email: cleanEmail, password, role: role || 'student' });
     res.status(201).json({
       success: true,
       data: { _id: user._id, name: user.name, email: user.email, role: user.role, token: generateToken(user._id) }
@@ -26,8 +27,18 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
-    if (user && (await user.matchPassword(password))) {
+    const cleanEmail = email ? email.toLowerCase().trim() : '';
+    console.log(`[LOGIN ATTEMPT] Email: "${cleanEmail}" | Password: "${password}"`);
+    const user = await User.findOne({ email: cleanEmail });
+    if (!user) {
+      console.log(`[LOGIN FAILED] User not found for email: "${cleanEmail}"`);
+      return res.status(401).json({ success: false, message: 'Invalid email or password' });
+    }
+    console.log(`[LOGIN DEBUG] User found. Stored password hash: "${user.password}"`);
+    const isMatch = await user.matchPassword(password);
+    console.log(`[LOGIN DEBUG] matchPassword result: ${isMatch}`);
+    
+    if (isMatch) {
       res.json({
         success: true,
         data: { _id: user._id, name: user.name, email: user.email, role: user.role, token: generateToken(user._id) }
@@ -36,6 +47,7 @@ const loginUser = async (req, res) => {
       res.status(401).json({ success: false, message: 'Invalid email or password' });
     }
   } catch (err) {
+    console.error('[LOGIN ERROR]', err);
     res.status(500).json({ success: false, message: err.message });
   }
 };

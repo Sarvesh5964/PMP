@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-  LayoutDashboard, FileUser, Code, CheckSquare, MessageSquareCode,
+  LayoutDashboard, FileText, Code, CheckSquare, MessageSquareCode,
   Briefcase, Users, Database, Layers, Sparkles
 } from 'lucide-react';
 
@@ -18,7 +18,7 @@ const Sidebar = ({ sidebarOpen }) => {
     { name: 'Manage Applications', path: '/admin/applications', icon: Layers }
   ] : [
     { name: 'Readiness Dashboard', path: '/', icon: LayoutDashboard },
-    { name: 'Resume & Profile', path: '/resume', icon: FileUser },
+    { name: 'Resume & Profile', path: '/resume', icon: FileText },
     { name: 'Coding Practice', path: '/coding', icon: Code },
     { name: 'Aptitude Tests', path: '/aptitude', icon: CheckSquare },
     { name: 'Mock Interview', path: '/interview', icon: MessageSquareCode },

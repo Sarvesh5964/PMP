@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -33,10 +35,14 @@ const Login = () => {
         {error && <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs text-center">{error}</div>}
         <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
           <input type="email" required placeholder="Email Address" value={email} onChange={e => setEmail(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 px-4 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none" />
-          <input type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 px-4 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none" />
+          <div className="relative">
+            <input type={showPassword ? "text" : "password"} required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="block w-full rounded-2xl border border-white/10 bg-slate-900/60 py-3 pl-4 pr-12 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none" />
+            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 focus:outline-none">
+              {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
+            </button>
+          </div>
           <button type="submit" disabled={loading} className="w-full flex justify-center py-3 bg-indigo-600 rounded-2xl text-xs font-semibold text-white hover:bg-indigo-500 disabled:opacity-50 transition-all">Sign In</button>
         </form>
-        <p className="text-center text-xs text-slate-500 font-bold">Demo: student@placement.com / studentPassword123</p>
         <p className="text-center text-xs text-slate-400">New to portal? <Link to="/register" className="text-indigo-400 hover:underline">Register</Link></p>
       </div>
     </div>
