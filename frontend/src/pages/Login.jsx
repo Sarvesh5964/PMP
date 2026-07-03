@@ -28,9 +28,9 @@ const Login = () => {
       <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-purple-600/10 blur-[100px] pointer-events-none"></div>
       <div className="w-full max-w-md space-y-8 glass-panel p-8 rounded-3xl border border-white/10 shadow-2xl relative z-10">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-display font-extrabold text-white text-2xl shadow-xl">P</div>
+          <div className="mx-auto h-12 w-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-display font-extrabold text-white text-2xl shadow-xl">C</div>
           <h2 className="mt-6 text-3xl font-extrabold font-display bg-gradient-to-r from-slate-100 to-slate-400 bg-clip-text text-transparent">Welcome Back</h2>
-          <p className="text-xs text-slate-400 mt-2">Sign in to your placement prep suite</p>
+          <p className="text-xs text-slate-400 mt-2">Sign in to your career prep suite</p>
         </div>
         {error && <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs text-center">{error}</div>}
         <form className="mt-8 space-y-4" onSubmit={handleSubmit}>

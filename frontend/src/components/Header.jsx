@@ -21,8 +21,8 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
           <Menu className="h-6 w-6" />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-display font-bold text-white shadow-lg shadow-indigo-500/20">P</div>
-          <span className="hidden sm:inline font-display font-semibold text-lg bg-gradient-to-r from-slate-100 to-slate-400 bg-clip-text text-transparent">PlacementPortal</span>
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-display font-bold text-white shadow-lg shadow-indigo-500/20">C</div>
+          <span className="hidden sm:inline font-display font-semibold text-lg bg-gradient-to-r from-slate-100 to-slate-400 bg-clip-text text-transparent">Career Development & Management Portal</span>
         </div>
       </div>
       <div className="flex items-center gap-4">
