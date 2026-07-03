@@ -14,6 +14,15 @@ const templates = {
   ruby: `def solve\n  # Write Ruby code here\nend`
 };
 
+const aptitudeSections = [
+  { name: 'Quantitative Aptitude', desc: 'Practice train problems, work & efficiency, simple/compound interest, ratios, averages.' },
+  { name: 'Logical Reasoning', desc: 'Practice blood relations, letter series, direction sense, clock angles, seating arrangements.' },
+  { name: 'Verbal Ability', desc: 'Practice sentence correction, synonyms, antonyms, voice shifts, active grammar.' },
+  { name: 'Data Interpretation', desc: 'Practice reading bar graphs, pie charts, stock line graphs, demographic tables.' },
+  { name: 'Data Sufficiency', desc: 'Practice age comparisons, radius proofs, numeric properties, work estimation.' },
+  { name: 'Analytical Reasoning', desc: 'Practice matrix arrangements, truth-teller riddles, scheduling calendars, input-output.' }
+];
+
 const PracticePage = () => {
   const location = useLocation();
   const isAptitudeRoute = location.pathname === '/aptitude';
@@ -28,6 +37,7 @@ const PracticePage = () => {
   const [quizActive, setQuizActive] = useState(false);
   const [selectedOpt, setSelectedOpt] = useState({});
   const [quizRes, setQuizRes] = useState(null);
+  const [selectedAptitudeCat, setSelectedAptitudeCat] = useState(null);
 
   // Category filter for coding
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -75,7 +85,8 @@ const PracticePage = () => {
     }
   };
 
-  const handleStartQuiz = () => {
+  const handleStartQuiz = (categoryName) => {
+    setSelectedAptitudeCat(categoryName);
     setSelectedOpt({});
     setQuizRes(null);
     setQuizActive(true);
@@ -96,6 +107,10 @@ const PracticePage = () => {
 
   const coding = questions.filter(q => q.type === 'coding');
   const aptitude = questions.filter(q => q.type === 'aptitude');
+
+  const filteredAptitude = selectedAptitudeCat
+    ? aptitude.filter(q => q.category === selectedAptitudeCat)
+    : aptitude;
 
   const categories = ['All', 'Arrays', 'Strings', 'Linked List', 'Stacks and Queues', 'Trees and Graphs', 'Recursion'];
   const filteredCoding = selectedCategory === 'All' ? coding : coding.filter(q => q.category === selectedCategory);
@@ -122,35 +137,54 @@ const PracticePage = () => {
         // Aptitude Route
         quizActive ? (
           <div className="space-y-6 max-w-xl mx-auto">
-            {aptitude.map((q, i) => (
+            <div className="flex justify-between items-center bg-white/5 px-4 py-3 rounded-xl border border-white/5">
+              <span className="text-[10px] font-bold text-slate-300 uppercase tracking-wider">Topic: {selectedAptitudeCat}</span>
+              <button onClick={() => setQuizActive(false)} className="text-[10px] text-indigo-400 hover:text-indigo-300 font-bold">← Exit Test</button>
+            </div>
+            {filteredAptitude.map((q, i) => (
               <div key={q._id} className="glass-panel p-5 rounded-2xl space-y-3">
                 <span className="text-[10px] text-slate-500 block font-bold">QUESTION {i+1}</span>
-                <p className="text-xs text-slate-300">{q.content}</p>
-                <div className="grid grid-cols-2 gap-2 mt-2">
+                <p className="text-xs text-slate-300 font-medium leading-relaxed">{q.content}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
                   {q.options?.map((opt, oIdx) => (
-                    <button key={oIdx} onClick={() => setSelectedOpt({ ...selectedOpt, [q._id]: oIdx })} className={`text-left p-2 text-[10px] rounded-lg border focus:outline-none ${selectedOpt[q._id] === oIdx ? 'bg-indigo-600/20 border-indigo-500 text-indigo-200 font-semibold' : 'bg-white/5 border-white/5 text-slate-400 hover:bg-white/10'}`}>{opt}</button>
+                    <button key={oIdx} onClick={() => setSelectedOpt({ ...selectedOpt, [q._id]: oIdx })} className={`text-left p-2.5 text-[10px] rounded-xl border focus:outline-none transition-all ${selectedOpt[q._id] === oIdx ? 'bg-indigo-600/20 border-indigo-500 text-indigo-200 font-semibold' : 'bg-slate-900/60 border-white/5 text-slate-400 hover:bg-white/10'}`}>{opt}</button>
                   ))}
                 </div>
               </div>
             ))}
-            <button onClick={handleSubmitQuiz} className="w-full py-3 bg-indigo-600 text-xs font-semibold text-white rounded-2xl hover:bg-indigo-500">Submit Quiz</button>
+            <button onClick={handleSubmitQuiz} className="w-full py-3 bg-indigo-600 text-xs font-semibold text-white rounded-2xl hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-600/10">Submit Quiz</button>
           </div>
         ) : (
           <div className="space-y-6">
             {quizRes && (
-              <div className="glass-panel p-5 rounded-2xl max-w-md mx-auto space-y-2 text-xs">
+              <div className="glass-panel p-5 rounded-2xl max-w-md mx-auto space-y-2 text-xs border border-white/5">
                 <h3 className="font-bold text-slate-200 border-b border-white/5 pb-2 flex items-center gap-2">
                   <Award className="h-4 w-4 text-indigo-400" />
-                  Quiz Results Summary
+                  Test Results Summary: {selectedAptitudeCat}
                 </h3>
                 <p className="text-slate-400">Score: <span className="text-indigo-400 font-bold">{quizRes.score} / {quizRes.totalQuestions}</span></p>
                 <p className="text-[10px] text-slate-500 leading-relaxed mt-1">Accuracy registered to your Career Readiness index.</p>
               </div>
             )}
-            <div className="glass-panel p-8 rounded-3xl text-center max-w-sm mx-auto space-y-4">
-              <HelpCircle className="h-8 w-8 text-slate-500 mx-auto" />
-              <span className="block text-xs text-slate-400 leading-relaxed">Ready to launch a timed multiple-choice aptitude evaluation?</span>
-              <button onClick={handleStartQuiz} className="w-full py-2.5 bg-indigo-600 text-xs font-semibold text-white rounded-xl hover:bg-indigo-500">Start Timed Test</button>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {aptitudeSections.map((sec, idx) => {
+                const count = aptitude.filter(q => q.category === sec.name).length;
+                return (
+                  <div key={idx} className="glass-panel p-5 rounded-2xl flex flex-col justify-between hover:border-white/10 transition-colors">
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-xs font-bold text-slate-200 font-display">{sec.name}</h3>
+                        <span className="text-[9px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded-full font-bold">{count || 12} Questions</span>
+                      </div>
+                      <p className="text-[10px] text-slate-500 leading-relaxed">{sec.desc}</p>
+                    </div>
+                    <button onClick={() => handleStartQuiz(sec.name)} className="mt-4 w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-[10px] rounded-xl transition-colors shadow-sm shadow-indigo-600/10">
+                      Start Prep Test
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )
