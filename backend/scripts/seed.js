@@ -194,6 +194,7 @@ const seed = async () => {
 
     // Seed Aptitude Questions
     const aptitudeQuestions = [
+      // 1. Quantitative Aptitude (12 questions)
       {
         title: 'Train Speed and Distance',
         type: 'aptitude',
@@ -215,6 +216,128 @@ const seed = async () => {
         hints: ['Find their 1-day work efficiencies: 1/12 and 1/15. Add them together and invert.']
       },
       {
+        title: 'Simple Interest',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'easy',
+        content: 'A sum of money at simple interest amounts to $815 in 3 years and to $854 in 4 years. What is the sum?',
+        options: ['$650', '$690', '$698', '$700'],
+        correctOption: 2,
+        hints: ['Subtract the 3-year amount from the 4-year amount to get 1 year of interest. Then subtract 3 years of interest from $815.']
+      },
+      {
+        title: 'Profit and Loss markup',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'medium',
+        content: 'A shopkeeper sells a product for $240 at a loss of 20%. At what price should he sell it to gain 20%?',
+        options: ['$300', '$320', '$360', '$400'],
+        correctOption: 2,
+        hints: ['Find Cost Price (CP) first: CP = 240 / 0.8. Then find Selling Price for 20% gain: SP = CP * 1.2.']
+      },
+      {
+        title: 'Average Speed Calculation',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'easy',
+        content: 'A motorist travels from town X to town Y at an average speed of 40 km/h, and returns at an average speed of 60 km/h. What is his average speed for the round trip?',
+        options: ['48 km/h', '50 km/h', '45 km/h', '52 km/h'],
+        correctOption: 0,
+        hints: ['Use the formula for average speed of equal distances: 2xy / (x + y).']
+      },
+      {
+        title: 'Ratio and Proportions mix',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'medium',
+        content: 'In a mixture of 60 liters, the ratio of milk and water is 2:1. If this ratio is to be 1:2, how many liters of water should be added?',
+        options: ['20 liters', '30 liters', '40 liters', '60 liters'],
+        correctOption: 3,
+        hints: ['Initial milk = 40L, water = 20L. In the new mixture, water must be double the milk.']
+      },
+      {
+        title: 'Permutations arrangement',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'hard',
+        content: 'In how many ways can the letters of the word "LEADER" be arranged?',
+        options: ['720', '360', '120', '180'],
+        correctOption: 1,
+        hints: ['Count the total letters and divide by the factorial of repeating letters. Arrangement = 6! / 2!.']
+      },
+      {
+        title: 'Card Probability',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'easy',
+        content: 'From a pack of 52 cards, two cards are drawn together at random. What is the probability that both the cards are kings?',
+        options: ['1/221', '2/221', '1/13', '2/13'],
+        correctOption: 0,
+        hints: ['Number of ways of drawing 2 kings out of 4 is 4C2. Total ways of drawing 2 cards out of 52 is 52C2.']
+      },
+      {
+        title: 'Pipes and Cisterns',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'medium',
+        content: 'Two pipes A and B can fill a tank in 20 and 30 minutes respectively. If both pipes are opened together, how long will it take to fill the tank?',
+        options: ['10 mins', '12 mins', '15 mins', '25 mins'],
+        correctOption: 1,
+        hints: ['Add their 1-minute filling capabilities: 1/20 + 1/30 = 5/60 = 1/12. Invert to get 12 minutes.']
+      },
+      {
+        title: 'Boats and Streams',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'hard',
+        content: 'A boat can travel with a speed of 13 km/hr in still water. If the speed of the stream is 4 km/hr, find the time taken by the boat to go 68 km downstream.',
+        options: ['3 hours', '4 hours', '5 hours', '6 hours'],
+        correctOption: 1,
+        hints: ['Downstream speed = Boat speed + Stream speed = 13 + 4 = 17 km/hr. Time = Distance / Speed.']
+      },
+      {
+        title: 'Compound Interest',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'hard',
+        content: 'Find the compound interest on $10,000 for 2 years at 10% per annum, compounded annually.',
+        options: ['$2,000', '$2,100', '$2,200', '$1,900'],
+        correctOption: 1,
+        hints: ['Compound Interest = Principal * (1 + R/100)^T - Principal.']
+      },
+      {
+        title: 'Divisibility Rules',
+        type: 'aptitude',
+        category: 'Quantitative Aptitude',
+        difficulty: 'easy',
+        content: 'Which of the following numbers is completely divisible by 9?',
+        options: ['29034', '34902', '58123', '10983'],
+        correctOption: 0,
+        hints: ['If the sum of all digits of a number is divisible by 9, the number is divisible by 9.']
+      },
+
+      // 2. Logical Reasoning (12 questions)
+      {
+        title: 'Letter Series Coding',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'easy',
+        content: 'Look at this series: U32, V29, __, X23, Y20. What number should fill the blank?',
+        options: ['W26', 'W17', 'Z26', 'W25'],
+        correctOption: 0,
+        hints: ['Alphabet increases by 1 step. Numbers decrease by 3.']
+      },
+      {
+        title: 'Blood Relations puzzle',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'medium',
+        content: 'Pointing to a photograph, a man said, "I have no brother or sister but that man\'s father is my father\'s son." Whose photograph was it?',
+        options: ['His son\'s', 'His nephew\'s', 'His own', 'His father\'s'],
+        correctOption: 0,
+        hints: ['"My father\'s son" is the man himself. So the photograph is of the man\'s son.']
+      },
+      {
         title: 'Coding & Sequences',
         type: 'aptitude',
         category: 'Logical Reasoning',
@@ -223,11 +346,590 @@ const seed = async () => {
         options: ['EOJDEJFM', 'EOJDJEFM', 'MFEJDJOE', 'DJEOJFM'],
         correctOption: 1,
         hints: ['Examine the first and last letters. Notice the reverse order with letters shifted by one.']
+      },
+      {
+        title: 'Syllogism Deduction',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'medium',
+        content: 'Statements: (1) All dogs are books. (2) All books are pictures. Conclusions: [I] All dogs are pictures. [II] All pictures are books.',
+        options: ['Only I follows', 'Only II follows', 'Both I & II follow', 'Neither follows'],
+        correctOption: 0,
+        hints: ['Since Dogs are subset of Books, and Books are subset of Pictures, all Dogs must be Pictures.']
+      },
+      {
+        title: 'Direction Sense Test',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'easy',
+        content: 'A man walks 2 km North, then turns East and walks 10 km. After this he turns North and walks 4 km. How far is he from his starting point?',
+        options: ['12 km', '10.5 km', '10.77 km', '11.66 km'],
+        correctOption: 2,
+        hints: ['Total vertical distance = 2 + 4 = 6 km. Total horizontal distance = 10 km. Distance = sqrt(6^2 + 10^2).']
+      },
+      {
+        title: 'Linear Seating arrangement',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'medium',
+        content: 'Five friends P, Q, R, S, T are sitting in a row facing North. S is sitting between T and Q. Q is to the immediate left of R. P is to the immediate left of T. Who is sitting in the middle?',
+        options: ['P', 'Q', 'S', 'T'],
+        correctOption: 2,
+        hints: ['Work out the positions from left to right: P -> T -> S -> Q -> R.']
+      },
+      {
+        title: 'Clock Angles',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'hard',
+        content: 'What is the angle between the hour hand and the minute hand of a clock at 3:40?',
+        options: ['130 degrees', '125 degrees', '140 degrees', '120 degrees'],
+        correctOption: 0,
+        hints: ['Use the formula: Angle = |(30 * H) - (5.5 * M)| where H = 3 and M = 40.']
+      },
+      {
+        title: 'Calendar calculations',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'hard',
+        content: 'It was Sunday on Jan 1, 2006. What was the day of the week on Jan 1, 2010?',
+        options: ['Sunday', 'Friday', 'Saturday', 'Monday'],
+        correctOption: 1,
+        hints: ['Count the number of odd days. From 2006 to 2010, there are 3 ordinary years and 1 leap year (2008). 3 + 2 = 5 odd days.']
+      },
+      {
+        title: 'Statement & Assumptions',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'medium',
+        content: 'Statement: "Buy our product to reduce wrinkles in 2 weeks" - An advertisement. Assumptions: [I] Wrinkles can be reduced in 2 weeks. [II] People want wrinkles reduced.',
+        options: ['Only I follows', 'Only II follows', 'Both I and II follow', 'Neither follows'],
+        correctOption: 2,
+        hints: ['An advertiser assumes their claim is possible and that people are interested in the benefit.']
+      },
+      {
+        title: 'Word Analogy',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'easy',
+        content: 'Cup is to Lip as Bird is to __?',
+        options: ['Grass', 'Forest', 'Beak', 'Bush'],
+        correctOption: 2,
+        hints: ['One drinks from a cup using lips; a bird gathers or eats using its beak.']
+      },
+      {
+        title: 'Odd One Out',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'easy',
+        content: 'Find the odd one out of these terms: Geometry, Algebra, Arithmetic, Geography.',
+        options: ['Geometry', 'Algebra', 'Arithmetic', 'Geography'],
+        correctOption: 3,
+        hints: ['Geometry, Algebra, and Arithmetic are branches of Mathematics. Geography is a social science.']
+      },
+      {
+        title: 'Number Series Pattern',
+        type: 'aptitude',
+        category: 'Logical Reasoning',
+        difficulty: 'easy',
+        content: 'Find the next number in the series: 3, 5, 9, 17, 33, __.',
+        options: ['48', '65', '56', '60'],
+        correctOption: 1,
+        hints: ['The difference between consecutive terms doubles each time: +2, +4, +8, +16, +32.']
+      },
+
+      // 3. Verbal Ability (12 questions)
+      {
+        title: 'Synonym selection',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'easy',
+        content: 'Choose the correct synonym of the word "ABANDON".',
+        options: ['Retain', 'Forsake', 'Adopt', 'Protect'],
+        correctOption: 1,
+        hints: ['Abandon means to leave or desert. Forsake shares this definition.']
+      },
+      {
+        title: 'Antonym matching',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'easy',
+        content: 'Choose the correct antonym of the word "FRAGILE".',
+        options: ['Delicate', 'Robust', 'Brittle', 'Weak'],
+        correctOption: 1,
+        hints: ['Fragile means easily broken or weak. The opposite is strong or robust.']
+      },
+      {
+        title: 'Sentence Correction syntax',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'medium',
+        content: 'Find the grammatically correct option: "Every one of the students __ passed the exam."',
+        options: ['have', 'has', 'were having', 'are'],
+        correctOption: 1,
+        hints: ['"Every one" is a singular pronoun and requires a singular verb: "has".']
+      },
+      {
+        title: 'Fill in the Blanks grammar',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'easy',
+        content: 'Fill in the blank: "She is proficient __ coding in Python."',
+        options: ['in', 'at', 'with', 'for'],
+        correctOption: 0,
+        hints: ['We say "proficient in" a skill or subject.']
+      },
+      {
+        title: 'Idioms and Phrases',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'medium',
+        content: 'What is the meaning of the idiom: "Spill the beans"?',
+        options: ['To drop food', 'To reveal a secret prematurely', 'To work hard', 'To make a mistake'],
+        correctOption: 1,
+        hints: ['To spill the beans means to give away confidential information.']
+      },
+      {
+        title: 'One Word Substitution',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'easy',
+        content: 'Provide a single word for: "A person who writes books or articles."',
+        options: ['Auditor', 'Author', 'Actor', 'Artist'],
+        correctOption: 1,
+        hints: ['An author writes books, articles, or papers.']
+      },
+      {
+        title: 'Active to Passive Voice',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'medium',
+        content: 'Change the voice: "The chef cooked a delicious meal."',
+        options: ['A delicious meal is cooked by the chef.', 'A delicious meal was cooked by the chef.', 'The chef was cooking a delicious meal.', 'A delicious meal had been cooked by the chef.'],
+        correctOption: 1,
+        hints: ['Simple past tense in active becomes "was/were + past participle" in passive voice.']
+      },
+      {
+        title: 'Comprehension logical reasoning',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'hard',
+        content: 'Read and deduce: "John is taller than Peter. Dave is shorter than Peter. Who is the tallest?"',
+        options: ['John', 'Peter', 'Dave', 'Cannot be determined'],
+        correctOption: 0,
+        hints: ['Logical hierarchy: John > Peter > Dave. So John is the tallest.']
+      },
+      {
+        title: 'Spell Check accuracy',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'easy',
+        content: 'Identify the correctly spelled word.',
+        options: ['Accomodate', 'Accommodate', 'Acommodate', 'Accomodate'],
+        correctOption: 1,
+        hints: ['Accommodate has double "c" and double "m".']
+      },
+      {
+        title: 'Paragraph Ordering sequence',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'hard',
+        content: 'Arrange in order: [P] He was very hungry. [Q] He found a restaurant. [R] He ordered food. [S] He sat down.',
+        options: ['PQSR', 'PQRS', 'PSQR', 'PRSQ'],
+        correctOption: 0,
+        hints: ['Hunger (P) leads to finding a place (Q), sitting down (S), and then ordering (R).']
+      },
+      {
+        title: 'Prepositions insertion',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'easy',
+        content: 'Choose the correct preposition: "The child was hiding __ the bed."',
+        options: ['under', 'over', 'into', 'upon'],
+        correctOption: 0,
+        hints: ['Hiding places below furniture are described as "under".']
+      },
+      {
+        title: 'Analogy Word Links',
+        type: 'aptitude',
+        category: 'Verbal Ability',
+        difficulty: 'easy',
+        content: 'Doctor is to Hospital as Teacher is to __?',
+        options: ['School', 'Market', 'Court', 'Station'],
+        correctOption: 0,
+        hints: ['A doctor works in a hospital; a teacher works in a school.']
+      },
+
+      // 4. Data Interpretation (12 questions)
+      {
+        title: 'Bar Chart Sales Growth',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'medium',
+        content: 'A bar chart shows sales of $50k in 2021, $75k in 2022, and $90k in 2023. What is the percentage increase in sales from 2021 to 22?',
+        options: ['50%', '30%', '25%', '60%'],
+        correctOption: 0,
+        hints: ['Percentage increase = ((Sales 2022 - Sales 2021) / Sales 2021) * 100.']
+      },
+      {
+        title: 'Pie Chart Budget Distribution',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'easy',
+        content: 'In a company budget pie chart, 30% goes to R&D, 40% to Marketing, and 30% to Sales. If the total budget is $100,000, how much goes to Marketing?',
+        options: ['$30,000', '$40,000', '$10,000', '$25,000'],
+        correctOption: 1,
+        hints: ['Marketing share = 40% of $100,000 = 0.40 * 100000.']
+      },
+      {
+        title: 'Line Graph production rates',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'medium',
+        content: 'A line graph tracks monthly toy production: Jan (2000), Feb (1800), Mar (2200), Apr (2400). What is the average monthly toy production?',
+        options: ['2100', '2200', '2000', '2300'],
+        correctOption: 0,
+        hints: ['Average = (Sum of toy counts for all months) / number of months. (2000+1800+2200+2400)/4.']
+      },
+      {
+        title: 'Table Chart Population Census',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'medium',
+        content: 'A table shows population of City A: Males (400k), Females (350k). City B: Males (300k), Females (320k). Which city has a higher sex ratio (Females/Males)?',
+        options: ['City B', 'City A', 'Both equal', 'Cannot determine'],
+        correctOption: 0,
+        hints: ['City A ratio = 350/400 = 0.875. City B ratio = 320/300 = 1.06.']
+      },
+      {
+        title: 'Combined Index Graph',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'hard',
+        content: 'A combined graph shows cost price index (120) and selling price index (150). What is the profit margin percentage based on these index numbers?',
+        options: ['25%', '20%', '30%', '15%'],
+        correctOption: 0,
+        hints: ['Margin = ((SP index - CP index) / CP index) * 100 = (30 / 120) * 100.']
+      },
+      {
+        title: 'Radar Chart evaluation',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'medium',
+        content: 'A radar chart rates Candidate A as 8/10 in coding, 6/10 in logic, 7/10 in verbal. Candidate B as 7/10, 8/10, 6/10. Who has the highest overall total rating score?',
+        options: ['Both are equal', 'Candidate A', 'Candidate B', 'None of these'],
+        correctOption: 0,
+        hints: ['Sum ratings for both: A = 8+6+7 = 21. B = 7+8+6 = 21.']
+      },
+      {
+        title: 'Table profit margins comparison',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'easy',
+        content: 'Product X: revenue $200, cost $150. Product Y: revenue $300, cost $250. Which product has a higher profit percentage relative to cost?',
+        options: ['Product X', 'Product Y', 'Both equal', 'Cannot tell'],
+        correctOption: 0,
+        hints: ['Product X profit = 50/150 = 33.3%. Product Y profit = 50/250 = 20%.']
+      },
+      {
+        title: 'Pie Chart expense division',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'medium',
+        content: 'Family expenses pie chart has rent (120 degrees). If total monthly expense is $3000, what is the rent expense?',
+        options: ['$1000', '$1200', '$800', '$1500'],
+        correctOption: 0,
+        hints: ['Rent fraction = 120 degrees out of 360 degrees = 1/3 of total budget.']
+      },
+      {
+        title: 'Bar Chart Rainfall Metrics',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'easy',
+        content: 'Rainfall in mm: Mon (10), Tue (0), Wed (20), Thu (15). What is the total rainfall?',
+        options: ['45 mm', '30 mm', '40 mm', '50 mm'],
+        correctOption: 0,
+        hints: ['Simply add the values for all days: 10 + 0 + 20 + 15.']
+      },
+      {
+        title: 'Line Graph Stock Prices',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'medium',
+        content: 'Stock price drops from $100 to $80. What is the percentage drop?',
+        options: ['20%', '25%', '15%', '30%'],
+        correctOption: 0,
+        hints: ['Drop percentage = ((Original - New) / Original) * 100 = (20 / 100) * 100.']
+      },
+      {
+        title: 'Table student marks assessment',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'easy',
+        content: 'Student scores: Math (80/100), Science (90/100). What is the aggregate percentage score?',
+        options: ['85%', '90%', '80%', '95%'],
+        correctOption: 0,
+        hints: ['Aggregate = ((80 + 90) / 200) * 100 = 170/200 * 100.']
+      },
+      {
+        title: 'Pie Chart energy sources',
+        type: 'aptitude',
+        category: 'Data Interpretation',
+        difficulty: 'hard',
+        content: 'A city uses coal (50%), gas (30%), solar (20%). If total power is 500 MW, how many MW is solar power?',
+        options: ['100 MW', '150 MW', '50 MW', '200 MW'],
+        correctOption: 0,
+        hints: ['Solar power = 20% of 500 MW = 0.20 * 500.']
+      },
+
+      // 5. Data Sufficiency (12 questions)
+      {
+        title: 'DS on Age comparison',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'medium',
+        content: 'What is John\'s current age?\n[I] John is 5 years older than Dave.\n[II] Dave was born 15 years ago.\nDecide if statements are sufficient.',
+        options: ['Statement I & II together are sufficient', 'I alone is sufficient', 'II alone is sufficient', 'Statements are not sufficient'],
+        correctOption: 0,
+        hints: ['From II, we find Dave is 15. From I, John is 15 + 5 = 20. Both together are required.']
+      },
+      {
+        title: 'DS on Speed and Time',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'medium',
+        content: 'How long did the motorist take to cover 100 km?\n[I] His average speed was 50 km/h.\n[II] He stopped for 15 minutes midway.\nDecide if statements are sufficient.',
+        options: ['Statement I alone is sufficient', 'Statement I & II together are sufficient', 'II alone is sufficient', 'Neither sufficient'],
+        correctOption: 1,
+        hints: ['We need speed to calculate drive time (2 hours), and statement II to add stop duration (2.25 hours total).']
+      },
+      {
+        title: 'DS on Geometry Area',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'hard',
+        content: 'What is the area of the right-angled triangle?\n[I] The hypotenuse is 10 cm.\n[II] The base is 6 cm.\nDecide if statements are sufficient.',
+        options: ['Statements I and II together are sufficient', 'Statement I alone is sufficient', 'Statement II alone is sufficient', 'Statements are not sufficient'],
+        correctOption: 0,
+        hints: ['To find area, we need base and height. Height can be found using hypotenuse (10) and base (6) via Pythagoras.']
+      },
+      {
+        title: 'DS on Number properties',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'easy',
+        content: 'Is integer X odd?\n[I] X is divisible by 2.\n[II] X is a multiple of 5.\nDecide if statements are sufficient.',
+        options: ['Statement I alone is sufficient', 'Statement II alone is sufficient', 'Both together are sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['If X is divisible by 2, it is even, so it is NOT odd. Statement I alone resolves this question with a definite "No".']
+      },
+      {
+        title: 'DS on Average calculation',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'medium',
+        content: 'What is the average height of 3 boys?\n[I] The tallest boy is 180 cm.\n[II] The sum of heights of the other two boys is 320 cm.',
+        options: ['Statements I and II together are sufficient', 'Statement I alone is sufficient', 'II alone is sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['To find average, we need sum of all three heights. Sum = 180 + 320 = 500 cm.']
+      },
+      {
+        title: 'DS on Profit Percentage',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'medium',
+        content: 'What was the profit percentage of the sale of a laptop?\n[I] The selling price was $800.\n[II] The cost price was $600.',
+        options: ['Statements I and II together are sufficient', 'Statement I alone is sufficient', 'II alone is sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['Profit % = ((SP - CP) / CP) * 100. We need both SP and CP to calculate this.']
+      },
+      {
+        title: 'DS on Ratio Composition',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'easy',
+        content: 'Find the total number of students in a class.\n[I] The ratio of boys to girls is 3:2.\n[II] There are 12 girls in the class.',
+        options: ['Statements I and II together are sufficient', 'I alone is sufficient', 'II alone is sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['From ratio 3:2, boys = (3/2) * girls. With girls = 12, boys = 18. Total = 30. Both are needed.']
+      },
+      {
+        title: 'DS on Simple Interest Variables',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'medium',
+        content: 'What interest rate is charged on a loan of $5000?\n[I] The simple interest for 3 years is $600.\n[II] The total repayment amount is $5600.',
+        options: ['Statement I alone is sufficient', 'Statement II alone is sufficient', 'Either statement I or II alone is sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['Interest rate SI = (P * R * T) / 100. With SI = 600, P = 5000, and T = 3, we can solve for R.']
+      },
+      {
+        title: 'DS on Coding-Decoding',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'easy',
+        content: 'What does "sky" mean in the code language?\n[I] "sky is blue" is coded as "1 2 3".\n[II] "is blue deep" is coded as "2 3 4".',
+        options: ['Statements I and II together are sufficient', 'Statement I alone is sufficient', 'II alone is sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['Compare both codes. Common terms "is blue" are coded as "2" and "3". So "sky" must be coded as "1".']
+      },
+      {
+        title: 'DS on Work Completion Days',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'medium',
+        content: 'In how many days can A and B complete a task working together?\n[I] A can complete the task in 10 days.\n[II] B takes 15 days to do the same task.',
+        options: ['Statements I and II together are sufficient', 'Statement I alone is sufficient', 'II alone is sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['Both speeds are needed to calculate combined work speed.']
+      },
+      {
+        title: 'DS on Sitting Orders',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'medium',
+        content: 'Who is sitting on the immediate left of Dave?\n[I] Alice sits adjacent to Dave.\n[II] Bob sits on the immediate right of Dave.',
+        options: ['Statements are not sufficient', 'Statements I and II together are sufficient', 'I alone is sufficient', 'II alone is sufficient'],
+        correctOption: 0,
+        hints: ['"Immediate left" is not resolved because statement I only says adjacent (which could be left or right).']
+      },
+      {
+        title: 'DS on Circle Radius',
+        type: 'aptitude',
+        category: 'Data Sufficiency',
+        difficulty: 'easy',
+        content: 'What is the radius of the circle?\n[I] The circumference is 44 cm.\n[II] The area is 154 sq. cm.',
+        options: ['Either statement I or II alone is sufficient', 'Statement I alone is sufficient', 'II alone is sufficient', 'Neither sufficient'],
+        correctOption: 0,
+        hints: ['Circumference = 2*pi*r, so r can be found from I. Area = pi*r^2, so r can be found from II. Either is sufficient.']
+      },
+
+      // 6. Analytical Reasoning (12 questions)
+      {
+        title: 'Matrix Arrangement Puzzle',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'medium',
+        content: 'Three guys X, Y, Z wear caps of Red, Blue, Green colors. X wears a Red cap. Y does not wear a Blue cap. What color cap does Z wear?',
+        options: ['Blue', 'Green', 'Red', 'Cannot determine'],
+        correctOption: 0,
+        hints: ['X is Red. Y is not Blue, so Y must be Green. Z must therefore be Blue.']
+      },
+      {
+        title: 'Grouping and Selection',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'hard',
+        content: 'A team of 3 must be selected from P, Q, R, S. If P is selected, Q cannot be selected. If S is selected, R must be selected. If P is chosen, who must fill the rest of the slots?',
+        options: ['R and S', 'Q and R', 'Q and S', 'None of these'],
+        correctOption: 0,
+        hints: ['P is selected, so Q is excluded. Remaining candidates are R and S. Since we need a team of 3, the team must be P, R, and S.']
+      },
+      {
+        title: 'Linear Sequencing Ranking',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'easy',
+        content: 'In a race, Tom finished before Harry but after Dick. Who won the race?',
+        options: ['Dick', 'Tom', 'Harry', 'Cannot tell'],
+        correctOption: 0,
+        hints: ['Order of finish: Dick -> Tom -> Harry. Dick is the winner.']
+      },
+      {
+        title: 'Network Path Connectivity',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'medium',
+        content: 'Town A connects to B. Town B connects to C and D. Town C connects to E. How many distinct routes connect Town A to Town E?',
+        options: ['1 route', '2 routes', '3 routes', 'No routes'],
+        correctOption: 0,
+        hints: ['Trace the connections: A -> B -> C -> E. There is only 1 path.']
+      },
+      {
+        title: 'Truth-teller and Liar puzzle',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'hard',
+        content: 'A says: "I am a liar." Is A a truth-teller or a liar?',
+        options: ['This is a logical paradox', 'A is a truth-teller', 'A is a liar', 'None of these'],
+        correctOption: 0,
+        hints: ['If A is telling the truth, then A is a liar (contradiction). If A is lying, then the statement is false, meaning A is not a liar (contradiction).']
+      },
+      {
+        title: 'Venn Diagram logic',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'easy',
+        content: 'All apples are fruits. Some fruits are sweet. Which Venn diagram represents this?',
+        options: ['Apples inside Fruits, sweet overlapping Fruits', 'Apples and sweet inside Fruits', 'Apples overlapping sweet, separate from Fruits', 'None of these'],
+        correctOption: 0,
+        hints: ['Apples is a subset of Fruits. Sweet overlaps with Fruits (and potentially Apples).']
+      },
+      {
+        title: 'Scheduling Constraints Calendar',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'medium',
+        content: 'Lecture X must be scheduled on Monday or Tuesday. Lecture Y must be scheduled after X. On what day can Y be scheduled?',
+        options: ['Tuesday or later', 'Monday only', 'Wednesday only', 'None of these'],
+        correctOption: 0,
+        hints: ['If X is Monday, Y can be Tuesday onwards. If X is Tuesday, Y can be Wednesday onwards.']
+      },
+      {
+        title: 'Machine Input-Output',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'hard',
+        content: 'Input: 40, 10, 50, 30. Step 1: 10, 40, 50, 30. Step 2: 10, 30, 40, 50. What algorithm is the machine executing?',
+        options: ['Ascending sorting', 'Descending sorting', 'Reverse input', 'None of these'],
+        correctOption: 0,
+        hints: ['The steps gradually arrange the numbers from smallest to largest.']
+      },
+      {
+        title: 'Course of Action decision',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'medium',
+        content: 'Problem: High traffic congestion in the city. Courses of action: [I] Restrict new car registrations. [II] Build flyovers and widen roads.',
+        options: ['Only II is a practical course of action', 'Only I is practical', 'Both I and II are practical', 'Neither follows'],
+        correctOption: 0,
+        hints: ['Restricting sales is highly extreme and bad for economy. Road infrastructure upgrades are standard traffic solutions.']
+      },
+      {
+        title: 'Cause and Effect correlation',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'medium',
+        content: 'Statement [I]: Farmers are shifting to organic farming. [II]: Consumers are demanding chemical-free vegetables.',
+        options: ['II is the cause and I is the effect', 'I is the cause and II is the effect', 'Both are independent causes', 'Both are effects of independent causes'],
+        correctOption: 0,
+        hints: ['The demand from consumers (cause) motivates farmers to change their crops (effect).']
+      },
+      {
+        title: 'Team Selection Composition',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'hard',
+        content: 'A panel of 4 contains 2 engineers and 2 doctors. Candidates: Engg (A, B, C), Doctors (D, E, F). If A is selected, D is excluded. If E is chosen, B must be chosen. If A and E are selected, who are the other two?',
+        options: ['B and F', 'B and C', 'C and F', 'None of these'],
+        correctOption: 0,
+        hints: ['A is Engg (selected). E is Doctor (selected). Since E is selected, B (Engg) must be selected. D is excluded. Remaining Doctor must be F. So team is A, E, B, F.']
+      },
+      {
+        title: 'Coding Grid Coordinates',
+        type: 'aptitude',
+        category: 'Analytical Reasoning',
+        difficulty: 'medium',
+        content: 'In a grid, moving Right is +1 X, and moving Up is +1 Y. If you start at (2, 3), move 2 units Right and 3 units Down, where are you?',
+        options: ['(4, 0)', '(0, 6)', '(4, 6)', '(2, 0)'],
+        correctOption: 0,
+        hints: ['X coordinate: 2 + 2 = 4. Y coordinate: 3 - 3 = 0. New coordinate is (4, 0).']
       }
     ];
 
     // Seed Interview Prompts
     const interviewPrompts = [
+      // 1. Frontend Developer (4 questions)
       {
         title: 'State vs Props in React',
         type: 'interview',
@@ -237,6 +939,32 @@ const seed = async () => {
         hints: ['State represents internal mutable component data. Props represent external read-only configuration passed from parent.']
       },
       {
+        title: 'Virtual DOM Mechanics',
+        type: 'interview',
+        category: 'Frontend Developer',
+        difficulty: 'hard',
+        content: 'What is the Virtual DOM, and how does React use diffing and reconciliation to optimize updates?',
+        hints: ['React creates a lightweight in-memory representation, runs a diffing algorithm, and patches only the changed real DOM nodes.']
+      },
+      {
+        title: 'CSS Box Model',
+        type: 'interview',
+        category: 'Frontend Developer',
+        difficulty: 'easy',
+        content: 'Explain the CSS Box Model. What is the difference between content-box and border-box sizing?',
+        hints: ['Box model consists of content, padding, border, and margin. border-box includes padding and border in the specified width.']
+      },
+      {
+        title: 'JavaScript Event Delegation',
+        type: 'interview',
+        category: 'Frontend Developer',
+        difficulty: 'medium',
+        content: 'What is Event Delegation in JavaScript? Explain how it uses event bubbling.',
+        hints: ['Attaching a single event listener to a parent element to manage events bubbling up from children.']
+      },
+
+      // 2. Backend Engineer (4 questions)
+      {
         title: 'REST API Design Principles',
         type: 'interview',
         category: 'Backend Engineer',
@@ -245,13 +973,65 @@ const seed = async () => {
         hints: ['Statelessness, Client-Server architecture, Uniform Interface, Layered System.']
       },
       {
-        title: 'Conflict Resolution Behavioral',
+        title: 'SQL vs NoSQL Databases',
         type: 'interview',
-        category: 'Behavioral',
+        category: 'Backend Engineer',
         difficulty: 'medium',
-        content: 'Describe a situation where you had a disagreement with a team member. How did you resolve it?',
-        hints: ['Use the STAR model. Focus on collaboration, active listening, and achieving a professional compromise.']
+        content: 'Explain the differences between relational (SQL) and non-relational (NoSQL) databases. When would you choose one over the other?',
+        hints: ['SQL has predefined schema and ACID properties. NoSQL is schema-less and horizontally scalable.']
       },
+      {
+        title: 'ExpressJS Middleware Flow',
+        type: 'interview',
+        category: 'Backend Engineer',
+        difficulty: 'easy',
+        content: 'What is middleware in Express.js? Explain the role of the next() function.',
+        hints: ['Functions that execute during the lifecycle of a request to modify req/res objects or end the cycle. next() passes control to the next handler.']
+      },
+      {
+        title: 'Secure Password Storage',
+        type: 'interview',
+        category: 'Backend Engineer',
+        difficulty: 'hard',
+        content: 'How do you securely store user passwords in a backend database? Explain hashing and salting.',
+        hints: ['Passwords should never be stored in plain text. Use bcrypt or Argon2 to hash them with a unique salt to prevent rainbow table attacks.']
+      },
+
+      // 3. Full Stack Developer (4 questions)
+      {
+        title: 'HTTP Request Lifecycle',
+        type: 'interview',
+        category: 'Full Stack Developer',
+        difficulty: 'medium',
+        content: 'Describe the complete lifecycle of a HTTP request from typing a URL in the browser to retrieving database records.',
+        hints: ['DNS resolution, TCP/TLS handshake, HTTP request sending, Web server proxy routing, Application logic running, SQL query, and JSON rendering.']
+      },
+      {
+        title: 'Resolving CORS Policies',
+        type: 'interview',
+        category: 'Full Stack Developer',
+        difficulty: 'medium',
+        content: 'What is CORS (Cross-Origin Resource Sharing), and how does a developer resolve CORS errors?',
+        hints: ['A security mechanism that restricts resources loaded from another origin. Solved by setting access-control headers on the server.']
+      },
+      {
+        title: 'CSR vs SSR in NextJS',
+        type: 'interview',
+        category: 'Full Stack Developer',
+        difficulty: 'hard',
+        content: 'Compare client-side rendering (CSR) and server-side rendering (SSR) in modern web development frameworks.',
+        hints: ['CSR delivers blank HTML and builds UI in the browser. SSR renders pages on the server and delivers fully populated HTML.']
+      },
+      {
+        title: 'Web Application Vulnerabilities',
+        type: 'interview',
+        category: 'Full Stack Developer',
+        difficulty: 'hard',
+        content: 'How do you secure web applications against SQL Injection (SQLi) and Cross-Site Scripting (XSS)?',
+        hints: ['Use parameterized queries or ORMs for SQLi. Sanitize inputs and set proper Content Security Policies (CSP) for XSS.']
+      },
+
+      // 4. Data Analyst (4 questions)
       {
         title: 'SQL Joins and Window Functions',
         type: 'interview',
@@ -277,6 +1057,16 @@ const seed = async () => {
         hints: ['Hypothesis formulation, splitting traffic, selecting sample sizes, and choosing t-test or z-test thresholds.']
       },
       {
+        title: 'Structured vs Unstructured Data',
+        type: 'interview',
+        category: 'Data Analyst',
+        difficulty: 'easy',
+        content: 'What is the difference between structured and unstructured data, and how do analysts approach unstructured formats?',
+        hints: ['Structured data resides in fixed tables/databases. Unstructured includes logs, text, images, handled via NLP/RegEx.']
+      },
+
+      // 5. AI/ML Engineer (4 questions)
+      {
         title: 'Supervised vs Unsupervised Learning',
         type: 'interview',
         category: 'AI/ML Engineer',
@@ -300,6 +1090,16 @@ const seed = async () => {
         content: 'Why do we require non-linear activation functions (like ReLU) in neural networks instead of linear ones?',
         hints: ['Without non-linearity, a neural network, no matter how many layers it has, collapses into a simple linear regression.']
       },
+      {
+        title: 'Gradient Descent Optimization',
+        type: 'interview',
+        category: 'AI/ML Engineer',
+        difficulty: 'hard',
+        content: 'Explain the concept of gradient descent. What is the difference between batch, stochastic (SGD), and mini-batch gradient descent?',
+        hints: ['Optimization algorithm to minimize loss. Batch uses all data, SGD uses 1 sample, mini-batch uses a small subset per step.']
+      },
+
+      // 6. DevOps Engineer (4 questions)
       {
         title: 'CI/CD Pipeline Stages',
         type: 'interview',
@@ -325,6 +1125,16 @@ const seed = async () => {
         hints: ['Docker shares the host OS kernel and is lightweight. VMs include a full guest OS and run via a hypervisor.']
       },
       {
+        title: 'Kubernetes Orchestration Components',
+        type: 'interview',
+        category: 'DevOps Engineer',
+        difficulty: 'hard',
+        content: 'Explain the core components of Kubernetes. What are Pods, Services, and Deployments?',
+        hints: ['Pods are the smallest execution units. Services expose pods to networking. Deployments manage state and scaling.']
+      },
+
+      // 7. Data Scientist (4 questions)
+      {
         title: 'Feature Selection Methods',
         type: 'interview',
         category: 'Data Scientist',
@@ -347,6 +1157,48 @@ const seed = async () => {
         difficulty: 'hard',
         content: 'Compare Random Forest and Gradient Boosting algorithms in terms of bagging vs boosting.',
         hints: ['Random Forest builds parallel independent trees (bagging). Gradient Boosting builds trees sequentially to fix errors (boosting).']
+      },
+      {
+        title: 'Optimal Clustering Selection',
+        type: 'interview',
+        category: 'Data Scientist',
+        difficulty: 'hard',
+        content: 'Explain how K-Means clustering works. How do you find the optimal number of clusters using the Elbow Method?',
+        hints: ['Initialize centroids, assign points, update centroids. Plot Within-Cluster Sum of Squares (WCSS) and locate the inflection point.']
+      },
+
+      // 8. Behavioral (4 questions)
+      {
+        title: 'Conflict Resolution Behavioral',
+        type: 'interview',
+        category: 'Behavioral',
+        difficulty: 'medium',
+        content: 'Describe a situation where you had a disagreement with a team member. How did you resolve it?',
+        hints: ['Use the STAR model. Focus on collaboration, active listening, and achieving a professional compromise.']
+      },
+      {
+        title: 'Overcoming Setbacks',
+        type: 'interview',
+        category: 'Behavioral',
+        difficulty: 'medium',
+        content: 'Tell me about a time you made a major mistake or failed in a project. How did you handle the aftermath?',
+        hints: ['Own the error immediately, focus on swift resolution, and explain what preventive safeguards you learned to implement.']
+      },
+      {
+        title: 'Prioritization Under Pressure',
+        type: 'interview',
+        category: 'Behavioral',
+        difficulty: 'easy',
+        content: 'How do you prioritize your tasks when facing multiple tight deadlines on different projects?',
+        hints: ['Explain using frameworks like the Eisenhower Matrix, communicating expectations with stakeholders early, and tracking progress.']
+      },
+      {
+        title: 'Working in a Cross-functional Team',
+        type: 'interview',
+        category: 'Behavioral',
+        difficulty: 'medium',
+        content: 'Describe your experience working with a team member who had a non-technical background. How did you bridge the gap?',
+        hints: ['Avoid deep jargon, use high-level functional analogies, and encourage feedback loops to ensure mutual understanding.']
       }
     ];
 

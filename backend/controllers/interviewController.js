@@ -50,4 +50,14 @@ const submitInterview = async (req, res) => {
   }
 };
 
-module.exports = { startInterview, submitInterview };
+const evaluateStep = async (req, res) => {
+  const { question, answer, category } = req.body;
+  try {
+    const evalResult = await evaluateInterviewAnswer(question, answer, category);
+    res.json({ success: true, data: evalResult });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+module.exports = { startInterview, submitInterview, evaluateStep };

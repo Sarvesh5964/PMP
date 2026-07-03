@@ -9,6 +9,7 @@ const InterviewPage = () => {
   const [idx, setIdx] = useState(0);
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
+  const [evaluatingStep, setEvaluatingStep] = useState(false);
 
   const [chatLog, setChatLog] = useState([]);
   const [transcript, setTranscript] = useState([]);
@@ -75,24 +76,45 @@ const InterviewPage = () => {
     }
   };
 
-  const handleSend = () => {
-    if (!answer.trim()) return;
+  const handleSend = async () => {
+    if (!answer.trim() || evaluatingStep) return;
     const currentQ = questions[idx];
-    setChatLog(prev => [...prev, { speaker: 'user', text: answer }]);
-    setTranscript(prev => [...prev, { question: currentQ.content, answer, category: currentQ.category }]);
+    const currentAnswer = answer;
+
+    // Append user answer
+    setChatLog(prev => [...prev, { speaker: 'user', text: currentAnswer }]);
+    setTranscript(prev => [...prev, { question: currentQ.content, answer: currentAnswer, category: currentQ.category }]);
     setAnswer('');
+    setEvaluatingStep(true);
+
+    try {
+      // Evaluate current answer in real-time
+      const res = await api.post('/api/interview/evaluate-step', {
+        question: currentQ.content,
+        answer: currentAnswer,
+        category: currentQ.category
+      });
+
+      if (res.data.success) {
+        const evalData = res.data.data;
+        const feedbackText = `🤖 AI Coach's Guidance:\n• Evaluation Score: ${evalData.score}/10\n• Strengths: ${evalData.strengths.join(' ') || 'None detected'}\n• Weaknesses: ${evalData.weaknesses.join(' ') || 'None detected'}\n• Correct way to answer: ${evalData.suggestions.join(' ')}`;
+        setChatLog(prev => [...prev, { speaker: 'bot', text: feedbackText }]);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setEvaluatingStep(false);
+    }
 
     const next = idx + 1;
-    if (next < questions.length) {
-      setIdx(next);
-      setTimeout(() => {
-        setChatLog(prev => [...prev, { speaker: 'bot', text: questions[next].content }]);
-      }, 700);
-    } else {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (next < questions.length) {
+        setIdx(next);
+        setChatLog(prev => [...prev, { speaker: 'bot', text: `Next Question:\n${questions[next].content}` }]);
+      } else {
         setChatLog(prev => [...prev, { speaker: 'bot', text: 'Excellent job. All interview stages are complete. Click the compilation button below to generate your final AI feedback report.' }]);
-      }, 700);
-    }
+      }
+    }, 1200);
   };
 
   const handleEvaluate = async () => {
@@ -254,17 +276,22 @@ const InterviewPage = () => {
             <div className="flex-1 p-5 overflow-y-auto space-y-4">
               {chatLog.map((chat, i) => (
                 <div key={i} className={`flex gap-3 max-w-[85%] ${chat.speaker === 'user' ? 'ml-auto flex-row-reverse' : ''}`}>
-                  <div className={`p-4 rounded-2xl text-xs leading-relaxed ${chat.speaker === 'user' ? 'bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white rounded-tr-none shadow-md shadow-indigo-600/10' : 'bg-white/5 text-slate-300 border border-white/5 rounded-tl-none'}`}>{chat.text}</div>
+                  <div className={`p-4 rounded-2xl text-xs leading-relaxed whitespace-pre-line ${chat.speaker === 'user' ? 'bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white rounded-tr-none shadow-md shadow-indigo-600/10' : 'bg-white/5 text-slate-300 border border-white/5 rounded-tl-none'}`}>{chat.text}</div>
                 </div>
               ))}
+              {evaluatingStep && (
+                <div className="flex gap-3 max-w-[85%] animate-pulse">
+                  <div className="p-4 rounded-2xl text-xs leading-relaxed bg-white/5 text-slate-400 border border-white/5 rounded-tl-none">🤖 Ava is analyzing your answer...</div>
+                </div>
+              )}
             </div>
 
             {/* Text Editor Message inputs */}
             <div className="p-3 border-t border-white/5 bg-slate-900/40 flex gap-2">
               {transcript.length < questions.length ? (
                 <>
-                  <input type="text" value={answer} onChange={e => setAnswer(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') handleSend(); }} placeholder={isMicOn ? "Recruiter listening... Speak or type response" : "Type your technical answer here..."} className="flex-1 rounded-xl border border-white/10 bg-slate-950 py-2.5 px-4 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none" />
-                  <button onClick={handleSend} className="p-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl flex items-center justify-center transition-colors">
+                  <input type="text" value={answer} disabled={evaluatingStep} onChange={e => setAnswer(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') handleSend(); }} placeholder={evaluatingStep ? "Evaluating response..." : isMicOn ? "Recruiter listening... Speak or type response" : "Type your technical answer here..."} className="flex-1 rounded-xl border border-white/10 bg-slate-950 py-2.5 px-4 text-xs text-slate-100 placeholder:text-slate-600 focus:outline-none" />
+                  <button onClick={handleSend} disabled={evaluatingStep} className="p-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl flex items-center justify-center transition-colors disabled:opacity-50">
                     <Send className="h-4 w-4" />
                   </button>
                 </>
